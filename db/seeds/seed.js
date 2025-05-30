@@ -1,6 +1,6 @@
 const db = require("../connection");
 const format = require("pg-format");
-const { convertTimestampToDate, createArticleRef } = require("./utils");
+const { createArticleRef } = require("./utils");
 
 const seed = ({ topicData, userData, articleData, commentData }) => {
   return db
