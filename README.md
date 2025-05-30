@@ -1,14 +1,38 @@
 # NC News Seeding
 
-- Instructions for this sprint can be found at https://l2c.northcoders.com/courses/be/seeding-nc-news
+## Setup
 
+### 1. Install npm dependencies
 
-Update the README
-Since .env.* files are ignored by Git, anyone who clones your project won’t have access to the required environment variables.
+```bash
+npm install
+```
 
-What you need to do:
+### 2. Setup databases
 
-Remove the link to the initial instructions in README.md.
-Add instructions explaining how to set up the .env files:
-Specify what files need to be created.
-Explain what values need to be added for a developer to connect to both databases locally.
+```bash
+npm run setup-dbs
+```
+
+### 3. Setup environment variables
+
+Create the following .env files:
+
+`.env.test`
+
+```
+PGDATABASE = nc_news_test
+```
+
+`.env.development`
+
+```
+PGDATABASE = nc_news
+```
+### 4. Verify setup
+
+```bash
+npm run test-seed
+npm run seed-dev
+```
+
