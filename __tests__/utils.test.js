@@ -1,5 +1,6 @@
 const {
-  convertTimestampToDate
+  convertTimestampToDate,
+  createArticleRef
 } = require("../db/seeds/utils");
 
 describe("convertTimestampToDate", () => {
@@ -35,6 +36,31 @@ describe("convertTimestampToDate", () => {
     const result = convertTimestampToDate(input);
     const expected = { key: "value" };
     expect(result).toEqual(expected);
+  });
+});
+
+describe('createArticleRef', () => {
+  it('returns an empty object when given an empty array', () => {
+    expect(createArticleRef([])).toEqual({})
+  });
+  it('should correctly map for one article', () => {
+    const article = [{article_id: 1, title: 'A'}]
+    const actual = createArticleRef(article)
+    const expected = {A : 1}
+    expect(actual).toEqual(expected)
+  });
+  it('should correctly map for multiple articles', () => {
+    const article = [{article_id: 1, title: 'A'}, {article_id: 2, title: 'B'}]
+    const actual = createArticleRef(article)
+    const expected = {A : 1, B : 2}
+    expect(actual).toEqual(expected)
+  });
+  it('should not mutate original array', () => {
+    const article = [{article_id: 1, title: 'A'}]
+    const copyArticle = [...article]
+    createArticleRef(article)
+    expect(copyArticle).toEqual(article)
+
   });
 });
 
