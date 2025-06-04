@@ -15,4 +15,10 @@ const fetchArticles = () => {
     });
 };
 
-module.exports = { fetchArticles };
+const fetchArticleById = (id) => {
+  return db.query(`SELECT * FROM articles a WHERE a.article_id = $1`, [id]).then(({rows: article})=>{
+    return article[0]
+  })
+}
+
+module.exports = { fetchArticles, fetchArticleById };
