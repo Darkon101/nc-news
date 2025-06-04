@@ -23,5 +23,17 @@
         }
       ]
     }
+  },
+  "GET /api/users": {
+    "description": "serves an array of all users",
+    "exampleResponse": {
+      "users": [
+        {
+          "username" : "Bob",
+          "name": "Robert",
+          "avatar_url": "https://picsum.photos/id/1/512/512"
+        }
+      ]
+    }
   }
 }
