@@ -107,4 +107,20 @@ describe("GET /api/articles/:article_id", () => {
         expect(typeof article_img_url).toBe('string')
       });
   });
+  test('404: Article not present within database', () => {
+    return request(app)
+    .get("/api/articles/99")
+    .expect(404)
+    .then(({body})=>{
+      expect(body.msg).toBe("No article found for article_id: 99")
+    })
+  });
+  test('400: Bad request', () => {
+    return request(app)
+    .get('/api/articles/dog')
+    .expect(400)
+    .then(({body})=>{
+      expect(body.msg).toBe("Invalid input")
+    })
+  });
 });
