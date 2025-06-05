@@ -21,10 +21,11 @@ app.get('/api/articles', getArticles)
 app.get('/api/users', getUsers)
 
 app.get('/api/articles/:article_id', getArticleById)
+
+
 app.use(handleCustomErrors)
 app.use(handleBadRequestErrors)
 app.use(handleServerErrors)
-
 
 
 module.exports = app
