@@ -124,3 +124,23 @@ describe("GET /api/articles/:article_id", () => {
     })
   });
 });
+
+describe('GET /api/articles/:article_id/comments', () => {
+  test('200: Returns with all comments belonging to single article id', () => {
+    return request(app)
+    .get('/api/articles/3/comments')
+    .expect(200)
+    .then(({body})=>{
+      expect(body.comments).toBeSortedBy('created_at', {descending: true})
+      expect(body.comments.length).not.toBe(0)
+      body.comments.forEach((comment)=>{
+        expect(typeof comment.article_id).toBe('number');
+        expect(typeof comment.votes).toBe('number');
+        expect(typeof comment.created_at).toBe('string');
+        expect(typeof comment.author).toBe('string');
+        expect(typeof comment.body).toBe('string');
+        expect(typeof comment.comment_id).toBe('number');
+      })
+    })
+  });
+});
