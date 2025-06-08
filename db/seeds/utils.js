@@ -6,14 +6,26 @@ exports.convertTimestampToDate = ({ created_at, ...otherProperties }) => {
 };
 
 
-exports.createArticleRef = (articles) => {
+exports.createArticleRef = (articles, title, article_id) => {
   const ref = {}
-  articles.forEach(({title, article_id}) => {
-    ref[title] = article_id
-  });
+
+  for(let article of articles){
+    const titleRef = article[title]
+    const article_idRef = article[article_id]
+    ref[titleRef] = article_idRef
+  }
+
   return ref
 }
 
+exports.formatComments = (comments, articleRef) => {
+  const formattedComments = []
+  for(let comment of comments){
+    const article_id = articleRef[comment.article_title]
+    formattedComments.push({...this.convertTimestampToDate(comment), article_id})
+  }
+  return formattedComments
+}
 
 
 
