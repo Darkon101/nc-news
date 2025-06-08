@@ -143,4 +143,20 @@ describe('GET /api/articles/:article_id/comments', () => {
       })
     })
   });
+  test('404: Returns error when article_id not in data base', () => {
+    return request(app)
+    .get('/api/articles/99/comments')
+    .expect(404)
+    .then(({body})=>{
+      expect(body.msg).toBe("No article found for article_id: 99")
+    })
+  });
+  test('400: Bad request', () => {
+    return request(app)
+    .get('/api/articles/dog/comments')
+    .expect(400)
+    .then(({body})=>{
+      expect(body.msg).toBe("Invalid input")
+    })
+  });
 });
