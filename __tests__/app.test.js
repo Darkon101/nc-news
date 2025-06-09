@@ -158,6 +158,7 @@ describe("GET /api/articles/:article_id", () => {
           created_at,
           votes,
           article_img_url,
+          comment_count
         } = article.article;
 
         expect(typeof author).toBe("string");
@@ -168,6 +169,7 @@ describe("GET /api/articles/:article_id", () => {
         expect(typeof created_at).toBe("string");
         expect(typeof votes).toBe("number");
         expect(typeof article_img_url).toBe("string");
+        expect(typeof comment_count).toBe('number')
       });
   });
   test("404: Article not present within database", () => {

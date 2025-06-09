@@ -59,7 +59,11 @@ const fetchArticles = (sort_by, order, topic) => {
 
 const fetchArticleById = (id) => {
   return db
-    .query(`SELECT * FROM articles a WHERE a.article_id = $1`, [id])
+    .query(`SELECT a.*, COUNT(c.comment_id)::INT AS comment_count 
+      FROM articles a 
+      LEFT JOIN comments c ON a.article_id = c.article_id
+      WHERE a.article_id = $1
+      GROUP BY a.article_id`, [id])
     .then(({ rows }) => {
       const article = rows[0];
       if (!article) {
