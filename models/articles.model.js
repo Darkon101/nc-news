@@ -1,6 +1,6 @@
 const db = require("../db/connection");
 
-const fetchArticles = (sort_by, order) => {
+const fetchArticles = (sort_by, order, topic) => {
   const sortColumnQueries = [
     "article_id",
     "title",
@@ -12,36 +12,49 @@ const fetchArticles = (sort_by, order) => {
     "comment_count",
   ];
 
-  const orderQueries = ['ASC', 'DESC']
+  const orderQueries = ["ASC", "DESC"];
 
-  if(sort_by && !sortColumnQueries.includes(sort_by)){
+  if (sort_by && !sortColumnQueries.includes(sort_by)) {
     return Promise.reject({
       status: 400,
-      msg: `Invalid input`
-    })
+      msg: `Invalid input`,
+    });
   }
-   if(order && !orderQueries.includes(order)){
+  if (order && !orderQueries.includes(order)) {
     return Promise.reject({
       status: 400,
-      msg: `Invalid input`
-    })
+      msg: `Invalid input`,
+    });
   }
 
   const sortQuery = sort_by || "created_at";
 
-  const orderQuery = order || 'DESC'
+  const orderQuery = order || "DESC";
 
-  const fetchQuery = `SELECT a.article_id, a.title, a.topic, a.author, a.created_at, a.votes, a.article_img_url, 
+  const queryParams = [];
+
+  let fetchQuery = `SELECT a.article_id, a.title, a.topic, a.author, a.created_at, a.votes, a.article_img_url, 
       COUNT(c.comment_id)::INT AS comment_count 
       FROM articles a 
-      LEFT JOIN comments c ON a.article_id = c.article_id 
-      GROUP BY a.article_id, a.title, a.topic, a.author, a.created_at, a.votes, a.article_img_url
+      LEFT JOIN comments c ON a.article_id = c.article_id`;
+
+  if (topic) {
+    fetchQuery += ` WHERE a.topic = $1`;
+    queryParams.push(topic);
+  }
+
+  fetchQuery += ` GROUP BY a.article_id, a.title, a.topic, a.author, a.created_at, a.votes, a.article_img_url
       ORDER BY ${sortQuery} ${orderQuery}`;
-      
-  return db.query(fetchQuery)
-  .then(({rows: articles})=>{
-    return articles
-  })
+
+  return db.query(fetchQuery, queryParams).then(({ rows: articles }) => {
+    if(articles.length === 0){
+      return Promise.reject({
+        status: 404,
+        msg: 'Topic not found'
+      })
+    }
+    return articles;
+  });
 };
 
 const fetchArticleById = (id) => {

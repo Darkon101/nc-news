@@ -4,7 +4,6 @@ const data = require("../db/data/test-data");
 const request = require("supertest");
 const app = require("../app");
 const seed = require("../db/seeds/seed");
-const articles = require("../db/data/test-data/articles");
 
 /* Set up your beforeEach & afterAll functions here */
 
@@ -81,7 +80,7 @@ describe("GET /api/articles", () => {
       expect(body.articles).toBeSortedBy('created_at', {ascending: true})
     })
   });
-  test("400: Bad Request -- column that doesn't exist", () => {
+  test("400: Bad Request -- sort column that doesn't exist", () => {
     return request(app)
     .get('/api/articles?sort_by=test')
     .expect(400)
@@ -95,6 +94,35 @@ describe("GET /api/articles", () => {
     .expect(400)
     .then(({body})=>{
       expect(body.msg).toBe('Invalid input');
+    })
+  });
+  test('200: Responds with filtered articles if topic query', () => {
+    return request(app)
+    .get('/api/articles?topic=mitch')
+    .expect(200)
+    .then(({body})=>{
+      expect(body.articles.length).not.toBe(0);
+        expect(body.articles).toBeSortedBy("created_at", { descending: true });
+        body.articles.forEach((article) => {
+          expect(typeof article.author).toBe("string");
+          expect(typeof article.title).toBe("string");
+          expect(typeof article.article_id).toBe("number");
+          expect(typeof article.topic).toBe("string");
+          expect(article.topic).toBe("mitch");
+          expect(typeof article.created_at).toBe("string");
+          expect(typeof article.votes).toBe("number");
+          expect(typeof article.article_img_url).toBe("string");
+          expect(typeof article.comment_count).toBe("number");
+          expect(article).not.toHaveProperty("body");
+        });
+    })
+  });
+  test('404: Topic not in database', () => {
+    return request(app)
+    .get('/api/articles?topic=testtopic')
+    .expect(404)
+    .then(({body})=>{
+      expect(body.msg).toBe("Topic not found");
     })
   });
 });
