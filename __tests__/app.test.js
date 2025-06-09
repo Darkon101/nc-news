@@ -97,66 +97,120 @@ describe("GET /api/articles/:article_id", () => {
           article_img_url,
         } = article.article;
 
-        expect(typeof author).toBe('string')
-        expect(typeof title).toBe('string')
-        expect(typeof article_id).toBe('number')
-        expect(typeof body).toBe('string')
-        expect(typeof topic).toBe('string')
-        expect(typeof created_at).toBe('string')
-        expect(typeof votes).toBe('number')
-        expect(typeof article_img_url).toBe('string')
+        expect(typeof author).toBe("string");
+        expect(typeof title).toBe("string");
+        expect(typeof article_id).toBe("number");
+        expect(typeof body).toBe("string");
+        expect(typeof topic).toBe("string");
+        expect(typeof created_at).toBe("string");
+        expect(typeof votes).toBe("number");
+        expect(typeof article_img_url).toBe("string");
       });
   });
-  test('404: Article not present within database', () => {
+  test("404: Article not present within database", () => {
     return request(app)
-    .get("/api/articles/99")
-    .expect(404)
-    .then(({body})=>{
-      expect(body.msg).toBe("No article found for article_id: 99")
-    })
+      .get("/api/articles/99")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("No article found for article_id: 99");
+      });
   });
-  test('400: Bad request', () => {
+  test("400: Bad request", () => {
     return request(app)
-    .get('/api/articles/dog')
-    .expect(400)
-    .then(({body})=>{
-      expect(body.msg).toBe("Invalid input")
-    })
+      .get("/api/articles/dog")
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Invalid input");
+      });
   });
 });
 
-describe('GET /api/articles/:article_id/comments', () => {
-  test('200: Returns with all comments belonging to single article id', () => {
+describe("GET /api/articles/:article_id/comments", () => {
+  test("200: Returns with all comments belonging to single article id", () => {
     return request(app)
-    .get('/api/articles/3/comments')
-    .expect(200)
-    .then(({body})=>{
-      expect(body.comments).toBeSortedBy('created_at', {descending: true})
-      expect(body.comments.length).not.toBe(0)
-      body.comments.forEach((comment)=>{
-        expect(typeof comment.article_id).toBe('number');
-        expect(typeof comment.votes).toBe('number');
-        expect(typeof comment.created_at).toBe('string');
-        expect(typeof comment.author).toBe('string');
-        expect(typeof comment.body).toBe('string');
-        expect(typeof comment.comment_id).toBe('number');
+      .get("/api/articles/3/comments")
+      .expect(200)
+      .then(({ body }) => {
+        expect(body.comments).toBeSortedBy("created_at", { descending: true });
+        expect(body.comments.length).not.toBe(0);
+        body.comments.forEach((comment) => {
+          expect(typeof comment.article_id).toBe("number");
+          expect(typeof comment.votes).toBe("number");
+          expect(typeof comment.created_at).toBe("string");
+          expect(typeof comment.author).toBe("string");
+          expect(typeof comment.body).toBe("string");
+          expect(typeof comment.comment_id).toBe("number");
+        });
+      });
+  });
+  test("404: Returns error when article_id not in data base", () => {
+    return request(app)
+      .get("/api/articles/99/comments")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("No article found for article_id: 99");
+      });
+  });
+  test("400: Bad request", () => {
+    return request(app)
+      .get("/api/articles/dog/comments")
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Invalid input");
+      });
+  });
+});
+
+describe("POST /api/articles/:article_id/comments", () => {
+  test("201: Responds with posted comment", () => {
+    return request(app)
+      .post("/api/articles/1/comments")
+      .send({
+        username: "icellusedkars",
+        body: "testBody",
       })
-    })
+      .expect(201)
+      .then(({ body: test }) => {
+        const { comment_id, article_id, body, votes, author, created_at } =
+          test.postedComment;
+        expect(typeof comment_id).toBe("number");
+        expect(typeof article_id).toBe("number");
+        expect(body).toBe("testBody");
+        expect(typeof votes).toBe("number");
+        expect(author).toBe("icellusedkars");
+        expect(typeof created_at).toBe("string");
+      });
   });
-  test('404: Returns error when article_id not in data base', () => {
+  test("400: Bad Request -- article_id not a number", () => {
     return request(app)
-    .get('/api/articles/99/comments')
-    .expect(404)
-    .then(({body})=>{
-      expect(body.msg).toBe("No article found for article_id: 99")
-    })
+      .post("/api/articles/test/comments")
+      .send({
+        username: "icellusedkars",
+        body: "testBody",
+      })
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Invalid input");
+      });
   });
-  test('400: Bad request', () => {
+  test("400: Bad Request -- items missing in body", () => {
     return request(app)
-    .get('/api/articles/dog/comments')
-    .expect(400)
-    .then(({body})=>{
-      expect(body.msg).toBe("Invalid input")
-    })
+      .post("/api/articles/3/comments")
+      .send({
+        username: "icellusedkars",
+      })
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Invalid input");
+      });
+  });
+  test("404: Article not found in database", () => {
+    return request(app)
+      .post("/api/articles/999/comments")
+      .send({ username: "icellusedkars", body: "testBody" })
+      .expect(404)
+      .then(({body})=>{
+        expect(body.msg).toBe("Article not found");
+      })
   });
 });
