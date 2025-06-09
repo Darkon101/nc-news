@@ -4,6 +4,7 @@ const data = require("../db/data/test-data");
 const request = require("supertest");
 const app = require("../app");
 const seed = require("../db/seeds/seed");
+const articles = require("../db/data/test-data/articles");
 
 /* Set up your beforeEach & afterAll functions here */
 
@@ -61,6 +62,40 @@ describe("GET /api/articles", () => {
           expect(article).not.toHaveProperty("body");
         });
       });
+  });
+  test('200: Responds with sorted articles when sort_by query is present', () => {
+    return request(app)
+    .get('/api/articles?sort_by=article_id')
+    .expect(200)
+    .then(({body})=>{
+      expect(body.articles.length).not.toBe(0)
+      expect(body.articles).toBeSortedBy('article_id', {descending: true})
+    })
+  });
+  test('200: Responds with ordered articles when order query is present', () => {
+    return request(app)
+    .get('/api/articles?order=ASC')
+    .expect(200)
+    .then(({body})=>{
+      expect(body.articles.length).not.toBe(0)
+      expect(body.articles).toBeSortedBy('created_at', {ascending: true})
+    })
+  });
+  test("400: Bad Request -- column that doesn't exist", () => {
+    return request(app)
+    .get('/api/articles?sort_by=test')
+    .expect(400)
+    .then(({body})=>{
+      expect(body.msg).toBe('Invalid input');
+    })
+  });
+  test("400: Bad Request -- order must be asc/desc", () => {
+    return request(app)
+    .get('/api/articles?order=test')
+    .expect(400)
+    .then(({body})=>{
+      expect(body.msg).toBe('Invalid input');
+    })
   });
 });
 
