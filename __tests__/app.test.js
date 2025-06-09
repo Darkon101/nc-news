@@ -209,8 +209,61 @@ describe("POST /api/articles/:article_id/comments", () => {
       .post("/api/articles/999/comments")
       .send({ username: "icellusedkars", body: "testBody" })
       .expect(404)
-      .then(({body})=>{
+      .then(({ body }) => {
         expect(body.msg).toBe("Article not found");
-      })
+      });
   });
+});
+
+describe("PATCH /api/articles/:article_id", () => {
+  test("200: Responds with updates PATCHed article object", () => {
+    return request(app)
+      .patch("/api/articles/1")
+      .send({ inc_votes: 100 })
+      .expect(200)
+      .then(({ body }) => {
+        const {
+          article_id,
+          title,
+          topic,
+          author,
+          created_at,
+          votes,
+          article_img_url,
+        } = body.patchedArticle;
+        expect(article_id).toBe(1);
+        expect(typeof title).toBe("string");
+        expect(typeof topic).toBe("string");
+        expect(typeof author).toBe("string");
+        expect(typeof created_at).toBe("string");
+        expect(typeof votes).toBe("number");
+        expect(votes).toBe(200);
+        expect(typeof article_img_url).toBe("string");
+      });
+  });
+  test("400: Bad request -- invalid article_id", () => {
+    return request(app)
+      .patch("/api/articles/test")
+      .send({ inc_votes: 100 })
+      .then(({ body }) => {
+        expect(body.msg).toBe("Invalid input");
+      });
+  });
+  test("400: Bad request -- invalid inc_votes", () => {
+    return request(app)
+      .patch("/api/articles/1")
+      .send({ inc_votes: 'test' })
+      .then(({ body }) => {
+        expect(body.msg).toBe("Invalid input");
+      });
+  });
+  test("404: article_id not in database", () => {
+    return request(app)
+      .patch("/api/articles/999")
+      .send({ inc_votes: 100 })
+      .then(({ body }) => {
+        expect(body.msg).toBe("Article not found");
+      });
+  });
+  
 });

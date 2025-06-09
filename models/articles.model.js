@@ -28,4 +28,17 @@ const fetchArticleById = (id) => {
   })
 }
 
-module.exports = { fetchArticles, fetchArticleById };
+const updateArticleById = (id, inc_votes) => {
+  return db.query(`UPDATE articles SET votes = votes + $1 WHERE article_id = $2 RETURNING *`, [inc_votes, id]).then(({rows})=>{
+    const patchedArticle = rows[0]
+    if(!patchedArticle){
+      return Promise.reject({
+        status: 404,
+        msg: `Article not found`
+      })
+    }
+    return patchedArticle
+  })
+}
+
+module.exports = { fetchArticles, fetchArticleById, updateArticleById };
