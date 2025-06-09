@@ -267,3 +267,30 @@ describe("PATCH /api/articles/:article_id", () => {
   });
   
 });
+
+describe('DELETE /api/comments/:comment_id', () => {
+  test('204: DELETES comment based on id -- returns empty object', () => {
+    return request(app)
+    .delete('/api/comments/1')
+    .expect(204)
+    .then(({body})=>{
+      expect(body.deletedComment).toBeUndefined()
+    })
+  });
+  test('404: comment _id not in database', () => {
+    return request(app)
+    .delete('/api/comments/999')
+    .expect(404)
+    .then(({body})=>{
+      expect(body.msg).toBe('Comment not found')
+    })
+  });
+  test('400: bad request -- invalid comment_id', () => {
+    return request(app)
+    .delete('/api/comments/test')
+    .expect(400)
+    .then(({body})=>{
+      expect(body.msg).toBe('Invalid input')
+    })
+  });
+});
