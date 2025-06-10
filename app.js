@@ -1,16 +1,16 @@
 const express = require('express')
-const db = require('./db/connection')
 const endpointsJSON = require('./endpoints.json')
 const { getTopics } = require('./controllers/topics.controller')
 const { getArticles, getArticleById, patchArticleById} = require('./controllers/articles.controller')
 const { getUsers } = require('./controllers/users.controller')
 const { handleCustomErrors, handleServerErrors, handlePSQLErrors } = require('./errors')
 const { getCommentsById, postCommentById, deleteCommentById } = require('./controllers/comments.controller')
-
+// const apiRouter = require('./routes/api-router')
 
 
 const app = express()
 app.use(express.json())
+// app.use("/api", apiRouter)
 
 app.get('/api', (req, res)=>{
     res.status(200).send({endpoints: endpointsJSON})
