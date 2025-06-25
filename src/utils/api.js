@@ -9,8 +9,10 @@ const fetchArticles = async () => {
 
         const json = await response.json()
         console.log(json)
+        return json
     } catch (error) {
         console.log(error.message, '<<fetchArticles')
+        throw error
     }
 }
 
