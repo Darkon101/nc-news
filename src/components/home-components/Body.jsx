@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ArticleCard from "./ArticleCard";
-import fetchArticles from "../../utils/api";
+import { fetchArticles } from "../../utils/api";
 
 const Body = () => {
   const [articles, setArticles] = useState([]);
@@ -23,22 +23,25 @@ const Body = () => {
   }, []);
 
   if (isLoading) {
-    return (
-        <p>Loading articles...</p>
-    )
+    return <p>Loading articles...</p>;
   }
 
   if (error) {
-    return (
-        <p>Something went wrong...</p>
-    )
+    return <p>Something went wrong...</p>;
   }
 
   return (
     <>
-      {articles.map((article)=>{
-          return <ArticleCard key={article.article_id} article={article} />
-      })}
+      <section>
+        {articles.map((article) => {
+          return (
+            <ArticleCard
+              key={article.article_id}
+              article={article}
+            />
+          );
+        })}
+      </section>
     </>
   );
 };

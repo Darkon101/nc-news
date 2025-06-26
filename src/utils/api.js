@@ -16,4 +16,19 @@ const fetchArticles = async () => {
     }
 }
 
-export default fetchArticles
+const fetchArticleById = async (articleId) => {
+    try {
+        const response = await fetch(`${baseUrl}/articles/${articleId}`)
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`)
+        }
+        const json = await response.json()
+        console.log(json)
+        return json
+    } catch (error) {
+        console.log(error.message, '<<fetchArticleById')
+        throw error
+    }
+}
+
+export {fetchArticles, fetchArticleById}
