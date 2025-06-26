@@ -40,7 +40,6 @@ const Article = () => {
       <Navbar />
       <ArticleCard article={article} />
       <ViewCommentsButton />
-      <CommentsContainer />
     </>
   );
 };

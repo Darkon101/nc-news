@@ -11,7 +11,6 @@ const Body = () => {
     fetchArticles()
       .then((result) => {
         const { articles } = result;
-        console.log(result);
         setArticles(articles);
         setLoading(false);
       })
