@@ -10,13 +10,13 @@ const ArticleCard = ({ article, onReadClick }) => {
   return (
     <Card>
       <Link to={`/articles/${article.article_id}`}>
-          <Card.Img
-            variant="top"
-            src={article.article_img_url}
-            onClick={onReadClick}
-            style={{ cursor: "pointer" }}
-            alt={article.title}
-          />
+        <Card.Img
+          variant="top"
+          src={article.article_img_url}
+          onClick={onReadClick}
+          style={{ cursor: "pointer" }}
+          alt={article.title}
+        />
       </Link>
       <Card.Body>
         <Card.Title>{article.title}</Card.Title>
@@ -25,7 +25,11 @@ const ArticleCard = ({ article, onReadClick }) => {
         </Card.Subtitle>
       </Card.Body>
       <Card.Footer className="text-muted">
-        {formatDate(article.created_at)}
+        <div>
+          <span>{article.votes} votes</span>
+          <span>{article.comment_count} comments</span>
+          <span>{formatDate(article.created_at)}</span>
+        </div>
       </Card.Footer>
     </Card>
   );
