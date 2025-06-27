@@ -46,4 +46,25 @@ const fetchCommentsById = async (articleId) => {
   }
 };
 
-export { fetchArticles, fetchArticleById, fetchCommentsById };
+const updateVotes = async (articleId, voteChange) => {
+  try {
+    const response = await fetch(`${baseUrl}/articles/${articleId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ inc_votes: voteChange }),
+    });
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const json = await response.json();
+    console.log(json);
+    return json;
+  } catch (error) {
+    console.log(error.message, "<<updateVotes");
+    throw error;
+  }
+};
+
+export { fetchArticles, fetchArticleById, fetchCommentsById, updateVotes };

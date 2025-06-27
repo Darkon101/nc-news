@@ -1,6 +1,7 @@
 import { Card } from "react-bootstrap";
 import { formatDate } from "../../utils/formatting";
 import { Link } from "react-router-dom";
+import VotesCounter from "./VotesCounter";
 
 const ArticleCard = ({ article, onReadClick }) => {
   if (!article) {
@@ -26,7 +27,7 @@ const ArticleCard = ({ article, onReadClick }) => {
       </Card.Body>
       <Card.Footer className="text-muted">
         <div>
-          <span>{article.votes} votes</span>
+          <span> <VotesCounter articleId={article.article_id} initVotes={article.votes}/> votes</span>
           <span>{article.comment_count} comments</span>
           <span>{formatDate(article.created_at)}</span>
         </div>
