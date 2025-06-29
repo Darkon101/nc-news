@@ -103,6 +103,20 @@ const fetchUsers = async () => {
   }
 };
 
+const deleteComment = async (commentId) => {
+  try {
+    const response = await fetch(`${baseUrl}/comments/${commentId}`, {
+      method: "DELETE"
+    })
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+  } catch (error) {
+    console.log(error.message, "<<deleteComment");
+    throw error;
+  } 
+}
+
 export {
   fetchArticles,
   fetchArticleById,
@@ -110,4 +124,5 @@ export {
   updateVotes,
   postComment,
   fetchUsers,
+  deleteComment
 };

@@ -38,12 +38,18 @@ const CommentsContainer = () => {
     setComments([...comments, newComment]);
   };
 
+  const handleDeleteComment = (id) => {
+    setComments((currentComments)=>
+        currentComments.filter((comment) => comment.comment_id !== id)
+    )
+  }
+
   return (
     <Container>
       <UserInfo />
       <CommentForm articleId={id} onPostComment={handlePostComment} />
       {comments.map((comment) => {
-        return <CommentCard key={comment.comment_id} comment={comment} />;
+        return <CommentCard key={comment.comment_id} comment={comment} onDeleteComment={handleDeleteComment}/>;
       })}
     </Container>
   );
