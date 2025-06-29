@@ -1,3 +1,4 @@
+import LoginIcon from "./LoginIcon"
 import Logo from "./Logo"
 import Menu from "./Menu"
 import Search from "./Search"
@@ -10,6 +11,7 @@ const Header  = () => {
         <Logo/>
         <Search/>
         <SearchButton/>
+        <LoginIcon/>
         <Menu/>
         </>
     )

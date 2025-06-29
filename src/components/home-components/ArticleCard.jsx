@@ -1,9 +1,9 @@
 import { Card } from "react-bootstrap";
 import { formatDate } from "../../utils/formatting";
 import { Link } from "react-router-dom";
-import VotesCounter from "./VotesCounter";
+import VotesCounter from "../VotesCounter";
 
-const ArticleCard = ({ article, onReadClick }) => {
+const ArticleCard = ({ article }) => {
   if (!article) {
     return <p>Article missing</p>;
   }
@@ -14,7 +14,6 @@ const ArticleCard = ({ article, onReadClick }) => {
         <Card.Img
           variant="top"
           src={article.article_img_url}
-          onClick={onReadClick}
           style={{ cursor: "pointer" }}
           alt={article.title}
         />

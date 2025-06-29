@@ -6,6 +6,7 @@ import ViewCommentsButton from "./ViewCommentsButton";
 import { fetchArticleById } from "../../utils/api";
 import { useParams } from "react-router-dom";
 
+
 const Article = () => {
   const [article, setArticle] = useState([]);
   const [isLoading, setLoading] = useState(true);

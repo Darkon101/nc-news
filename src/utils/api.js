@@ -51,7 +51,7 @@ const updateVotes = async (articleId, voteChange) => {
     const response = await fetch(`${baseUrl}/articles/${articleId}`, {
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ inc_votes: voteChange }),
     });
@@ -67,4 +67,47 @@ const updateVotes = async (articleId, voteChange) => {
   }
 };
 
-export { fetchArticles, fetchArticleById, fetchCommentsById, updateVotes };
+const postComment = async (articleId, user, commentBody) => {
+  try {
+    const response = await fetch(`${baseUrl}/articles/${articleId}/comments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: user, body: commentBody }),
+    });
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const json = await response.json();
+    console.log(json);
+    return json;
+  } catch (error) {
+    console.log(error.message, "<<updateVotes");
+    throw error;
+  }
+};
+
+const fetchUsers = async () => {
+  try {
+    const response = await fetch(`${baseUrl}/users`);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error.message, "<<fetchUsers");
+    throw error;
+  }
+};
+
+export {
+  fetchArticles,
+  fetchArticleById,
+  fetchCommentsById,
+  updateVotes,
+  postComment,
+  fetchUsers,
+};

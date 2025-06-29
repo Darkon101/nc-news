@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { updateVotes } from "../../utils/api"
+import { updateVotes } from "../utils/api"
 
 const VotesCounter = ({articleId, initVotes}) => {
     const [votesCount, setVotesCount] = useState(0)
