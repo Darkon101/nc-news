@@ -1,18 +1,13 @@
 import LoginIcon from "./LoginIcon"
 import Logo from "./Logo"
-import Menu from "./Menu"
-import Search from "./Search"
-import SearchButton from "./SearchButton"
-
+import MenuComponent from "./Menu"
 
 const Header  = () => {
     return (
         <>
         <Logo/>
-        <Search/>
-        <SearchButton/>
         <LoginIcon/>
-        <Menu/>
+        <MenuComponent/>
         </>
     )
 }

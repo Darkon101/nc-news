@@ -1,8 +1,12 @@
 const baseUrl = `https://nc-news-ldgq.onrender.com/api`;
 
-const fetchArticles = async () => {
+const fetchArticles = async (topic = null) => {
   try {
-    const response = await fetch(`${baseUrl}/articles`);
+    let url = `${baseUrl}/articles`
+    if(topic) {
+      url += `?topic=${topic}`
+    }
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
@@ -15,6 +19,21 @@ const fetchArticles = async () => {
     throw error;
   }
 };
+
+const fetchTopics = async () => {
+  try {
+    const response = await fetch(`${baseUrl}/topics`)
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const data = await response.json()
+    console.log(data)
+    return data
+  } catch (error) {
+    console.log(error.message, "<<fetchTopics");
+    throw error
+  }
+}
 
 const fetchArticleById = async (articleId) => {
   try {
@@ -124,5 +143,6 @@ export {
   updateVotes,
   postComment,
   fetchUsers,
-  deleteComment
+  deleteComment,
+  fetchTopics
 };

@@ -1,9 +1,9 @@
-import logo from '../../assets/file.svg'
+import ncLogo from '../../assets/NC.png'
 
 const Logo = () => {
     return (
         <>
-        <img src={logo} alt="logo" />
+        <img src={ncLogo} alt="logo" />
         </>
     )
 }
