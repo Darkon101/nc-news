@@ -15,7 +15,7 @@ const MenuComponent = () => {
 
     return (
         <>
-        <Menu menuButton={<MenuButton>Menu</MenuButton>} transition>
+        <Menu menuButton={<MenuButton>Menu</MenuButton>} transition menuStyle={{zIndex:9999}}>
             <SubMenu label="Sort by">
                 <SubMenu label="Topics">
                     <MenuItem value="Coding" onClick={handleTopicSelection}>Coding</MenuItem>
