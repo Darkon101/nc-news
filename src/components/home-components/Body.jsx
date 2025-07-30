@@ -31,16 +31,18 @@ const Body = () => {
 
   return (
     <>
-      <section>
-        {articles.map((article) => {
-          return (
-            <ArticleCard
-              key={article.article_id}
-              article={article}
-            />
-          );
-        })}
-      </section>
+      <div className="container">
+        <section className="articles-list">
+          {articles.map((article) => {
+            return (
+              <ArticleCard
+                key={article.article_id}
+                article={article}
+              />
+            );
+          })}
+        </section>
+      </div>
     </>
   );
 };

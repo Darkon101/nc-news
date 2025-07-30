@@ -1,5 +1,7 @@
 import { Menu, MenuItem, MenuButton, SubMenu } from "@szhsin/react-menu"
 import { useNavigate } from "react-router-dom"
+import { RiFilter2Line } from "react-icons/ri";
+
 
 const MenuComponent = () => {  
     const navigate = useNavigate()
@@ -15,7 +17,7 @@ const MenuComponent = () => {
 
     return (
         <>
-        <Menu menuButton={<MenuButton>Menu</MenuButton>} transition menuStyle={{zIndex:9999}}>
+        <Menu menuButton={<RiFilter2Line className="menu-button"/>} transition menuStyle={{zIndex:9999}}>
             <SubMenu label="Sort by">
                 <SubMenu label="Topics">
                     <MenuItem value="Coding" onClick={handleTopicSelection}>Coding</MenuItem>

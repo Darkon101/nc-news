@@ -9,18 +9,19 @@ const ArticleCard = ({ article }) => {
   }
 
   return (
-    <Card>
+    <Card className="article-card">
       <Link to={`/articles/${article.article_id}`}>
         <Card.Img
           variant="top"
           src={article.article_img_url}
           style={{ cursor: "pointer" }}
           alt={article.title}
+          className="article-card-image"
         />
       </Link>
-      <Card.Body>
-        <Card.Title>{article.title}</Card.Title>
-        <Card.Subtitle>
+      <Card.Body className="article-card-body">
+        <Card.Title className="article-card-title">{article.title}</Card.Title>
+        <Card.Subtitle className="article-card-subtitle">
           {article.author} in {article.topic}
         </Card.Subtitle>
       </Card.Body>

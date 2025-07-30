@@ -1,1 +1,94 @@
 @import url(Reset.css);
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  line-height: 1.6;
+  color: #333;
+}
+
+.header {
+  background: white;
+  padding: 1rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.logo {
+  width: 10rem;
+  height: 10rem;
+}
+
+.login-icon {
+  height: 3rem;
+  width: 3rem;
+}
+
+.menu-button {
+  cursor: pointer;
+  height: 3rem;
+  width: 3rem;
+}
+
+.right-header-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.articles-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.article-card {
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+  position: relative;
+}
+
+.article-card:hover {
+  border-color: #898989;
+}
+
+.article-card-title {
+    margin-left: 0.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.article-card-subtitle {
+    color: #ff0000;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  margin-left: 0.5rem;
+}
