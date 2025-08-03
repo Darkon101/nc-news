@@ -19,7 +19,7 @@ const ArticleCard = ({ article }) => {
           alt={article.title}
         />
         <Card.Footer>
-          <span> <VotesCounter articleId={article.article_id} initVotes={article.votes}/> votes</span>
+          <span> <VotesCounter articleId={article.article_id} initVotes={article.votes}/></span>
           <span>{article.comment_count} comments</span>
           <span>{formatDate(article.created_at)}</span>
         </Card.Footer>

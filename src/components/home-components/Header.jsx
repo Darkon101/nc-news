@@ -1,13 +1,16 @@
 import LoginIcon from "./LoginIcon";
 import Logo from "./Logo";
 import MenuComponent from "./Menu";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <>
       <header className="header">
         <div className="header-content">
-          <Logo />
+          <Link to={"/"}>
+            <Logo />
+          </Link>
           <div className="right-header-buttons">
               <LoginIcon />
               <MenuComponent />

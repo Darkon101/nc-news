@@ -5,7 +5,7 @@ const LoginIcon = () => {
   return (
     <>
       <Link to={`/login`}>
-        <RiLoginCircleLine className="login-icon"/>
+        <RiLoginCircleLine className="login-icon" color="black"/>
       </Link>
     </>
   );
