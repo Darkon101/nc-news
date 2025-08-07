@@ -1,25 +1,35 @@
 import { Card } from "react-bootstrap";
 import { formatDate } from "../../utils/formatting";
-import  VotesCounter  from "../VotesCounter";
+import VotesCounter from "../VotesCounter";
 
 const ArticleCard = ({ article }) => {
   return (
     <>
-      <Card>
-        <Card.Body>
+      <Card className="article-detail-card">
+        <Card.Body className="article-detail-card-body">
           <Card.Title>{article.title}</Card.Title>
-          <Card.Subtitle>
+          <Card.Subtitle className="article-detail-card-subtitle">
             {article.author} in {article.topic}
           </Card.Subtitle>
-          <Card.Text>{article.body}</Card.Text>
+          <Card.Text className="article-detail-card-text">{article.body}</Card.Text>
         </Card.Body>
-        <Card.Img
-          variant="bottom"
-          src={article.article_img_url}
-          alt={article.title}
-        />
-        <Card.Footer>
-          <span> <VotesCounter articleId={article.article_id} initVotes={article.votes}/></span>
+        <div className="article-detail-card-image-container">
+          <Card.Img
+            variant="bottom"
+            src={article.article_img_url}
+            alt={article.title}
+            className="article-detail-card-image"
+          />
+        </div>
+
+        <Card.Footer className="article-footer">
+          <span>
+            {" "}
+            <VotesCounter
+              articleId={article.article_id}
+              initVotes={article.votes}
+            />
+          </span>
           <span>{article.comment_count} comments</span>
           <span>{formatDate(article.created_at)}</span>
         </Card.Footer>

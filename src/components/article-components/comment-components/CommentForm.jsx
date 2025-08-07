@@ -27,7 +27,7 @@ const CommentForm = ({ articleId, onPostComment }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmitComment}>
+      <form className="comment-form" onSubmit={handleSubmitComment}>
         <label htmlFor="comment">Your Comment</label>
         <input
           type="text"

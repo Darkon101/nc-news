@@ -1,12 +1,15 @@
 import { useUser } from "../../../contexts/UsersContext"
 
 const UserInfo = () => {
-    const {user} = useUser()
+    const { user } = useUser()
 
     return (
-        <>
-            <span>Logged in as {user}</span>
-        </>
+        <div className="user-info-container">
+            <div>
+                <span className="user-info-text">Logged in as </span>
+                <span className="user-name">{user}</span>
+            </div>
+        </div>
     )
 }
 

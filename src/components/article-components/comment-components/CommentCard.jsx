@@ -27,19 +27,29 @@ const CommentCard = ({ comment, onDeleteComment }) => {
   };
 
   return (
-    <Card>
+    <Card className="comment-card">
       <Card.Header>
-        {comment.author}
-        {formatDate(comment.created_at)}
-        {comment.votes}votes
+        <div className="comment-author-info">
+          <span className="comment-author">{comment.author}</span>
+          <span className="comment-date">{formatDate(comment.created_at)}</span>
+        </div>
+        <span className="comment-votes">{comment.votes} votes</span>
       </Card.Header>
       <Card.Body>{comment.body}</Card.Body>
-      {user === comment.author && (
-        <button onClick={handleDelete} disabled={isDeleting}>
-          {isDeleting ? "Deleting..." : "Delete"}
-        </button>
+      {(user === comment.author || error) && (
+        <div className="comment-actions">
+          {user === comment.author && (
+            <button
+              className="delete-comment-btn"
+              onClick={handleDelete}
+              disabled={isDeleting}
+            >
+              {isDeleting ? "Deleting..." : "Delete"}
+            </button>
+          )}
+        </div>
       )}
-      <p>{error}</p>
+      {error && <p className="comment-error">{error}</p>}
     </Card>
   );
 };

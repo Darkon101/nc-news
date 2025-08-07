@@ -39,19 +39,30 @@ const CommentsContainer = () => {
   };
 
   const handleDeleteComment = (id) => {
-    setComments((currentComments)=>
-        currentComments.filter((comment) => comment.comment_id !== id)
-    )
-  }
+    setComments((currentComments) =>
+      currentComments.filter((comment) => comment.comment_id !== id)
+    );
+  };
+
 
   return (
-    <Container>
-      <UserInfo />
-      <CommentForm articleId={id} onPostComment={handlePostComment} />
-      {comments.map((comment) => {
-        return <CommentCard key={comment.comment_id} comment={comment} onDeleteComment={handleDeleteComment}/>;
-      })}
-    </Container>
+    <Container className="comments-container">
+  <UserInfo />
+  <CommentForm articleId={id} onPostComment={handlePostComment} />
+  <div className="comments-list">
+    {comments.length === 0 ? (
+      <div className="no-comments">No comments yet. Be the first to comment!</div>
+    ) : (
+      comments.map((comment) => (
+        <CommentCard 
+          key={comment.comment_id} 
+          comment={comment} 
+          onDeleteComment={handleDeleteComment}
+        />
+      ))
+    )}
+  </div>
+</Container>
   );
 };
 

@@ -39,7 +39,7 @@ const Article = () => {
   return (
     <>
       <Navbar />
-      <ArticleCard article={article} />
+      <ArticleCard article={article}/>
       <ViewCommentsButton />
     </>
   );
