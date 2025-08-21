@@ -1,6 +1,6 @@
 # NC NEWS
 
-![Tech Stack](https://github-readme-tech-stack.vercel.app/api/cards?title=Tech+Stack&lineCount=1&line1=react%2Creact%2Cd11c2b%3Breact+router%2Creact+router%2C42d237%3Bvite%2Cvite%2C1330e4%3Bcss%2Ccss%2Cc1c4bd%3Bjavascript%2Cjavascript%2C0bd016%3Bnode.js%2Cnode.js%2C798623%3Bjest%2Cjest%2C6c3cea%3Bexpress%2Cexpress%2C74ce96%3B)
+![Tech Stack](https://github-readme-tech-stack.vercel.app/api/cards?title=Tech+Stack&lineCount=1&width=1000&line1=react%2Creact%2Cd11c2b%3Breact+router%2Creact+router%2C42d237%3Bvite%2Cvite%2C1330e4%3Bcss%2Ccss%2Cc1c4bd%3Bjavascript%2Cjavascript%2C0bd016%3Bnode.js%2Cnode.js%2C798623%3Bjest%2Cjest%2C6c3cea%3Bexpress%2Cexpress%2C74ce96%3B)
 
 ## Hosted Version
 
